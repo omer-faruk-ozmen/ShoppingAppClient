@@ -17,9 +17,7 @@ export class DashboardComponent implements OnInit {
   }
   m() {
     this.alertify.message('Deneme', {
-      messageType: MessageType.Success,
-      delay: 5,
-      position: Position.TopRight,
+      messageType: MessageType.Message,
     });
   }
   d() {
