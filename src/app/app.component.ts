@@ -16,14 +16,5 @@ export class AppComponent {
   /**
    *
    */
-  constructor(private toastrSErvice: CustomToastrService) {
-    toastrSErvice.message('deneme', 'Deneme', {
-      messageType: ToastrMessageType.Success,
-      position: ToastrPosition.BottomRight,
-    });
-    toastrSErvice.message('deneme', 'Deneme', {
-      messageType: ToastrMessageType.Success,
-      position: ToastrPosition.BottomRight,
-    });
-  }
+  constructor() {}
 }
