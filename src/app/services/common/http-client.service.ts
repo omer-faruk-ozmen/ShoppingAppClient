@@ -43,9 +43,31 @@ export class HttpClientService {
     });
   }
 
-  put<T>() {}
+  put<T>(
+    requestParameter: Partial<RequestParameters>,
+    body: Partial<T>
+  ): Observable<T> {
+    let url: string = '';
+    if (requestParameter.fullEndPoint) url = requestParameter.fullEndPoint;
+    else url = `${this.url(requestParameter)}`;
 
-  delete<T>() {}
+    return this.httpClinet.put<T>(url, body, {
+      headers: requestParameter.headers,
+    });
+  }
+
+  delete<T>(
+    requestParameter: Partial<RequestParameters>,
+    id: string
+  ): Observable<T> {
+    let url: string = '';
+    if (requestParameter.fullEndPoint) url = requestParameter.fullEndPoint;
+    else url = `${this.url(requestParameter)}/${id}`;
+
+    return this.httpClinet.delete<T>(url, {
+      headers: requestParameter.headers,
+    });
+  }
 }
 
 export class RequestParameters {
