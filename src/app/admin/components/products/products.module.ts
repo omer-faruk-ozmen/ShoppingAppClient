@@ -1,3 +1,4 @@
+import { DeleteDirective } from './../../../directives/admin/delete.directive';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProductsComponent } from './products.component';
@@ -12,7 +13,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
-  declarations: [ProductsComponent, CreateComponent, ListComponent],
+  declarations: [
+    ProductsComponent,
+    CreateComponent,
+    ListComponent,
+    DeleteDirective,
+  ],
   imports: [
     CommonModule,
     RouterModule.forChild([

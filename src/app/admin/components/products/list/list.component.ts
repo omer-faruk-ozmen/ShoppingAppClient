@@ -15,6 +15,8 @@ import {
   _MatTableDataSource,
 } from '@angular/material/table';
 
+declare var $: any;
+
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
@@ -35,6 +37,8 @@ export class ListComponent extends BaseComponent implements OnInit {
     'price',
     'createdDate',
     'updatedDate',
+    'editing',
+    'delete',
   ];
   dataSource: MatTableDataSource<List_Product> = null;
 
@@ -66,6 +70,14 @@ export class ListComponent extends BaseComponent implements OnInit {
     );
     this.paginator.length = allProducts.totalCount;
   }
+
+  // delete(id, event) {
+  //   this.alertifyService.message('Başarılı', {
+  //     messageType: MessageType.Notify,
+  //   });
+  //   const img: HTMLImageElement = event.srcElement;
+  //   $(img.parentElement.parentElement).fadeOut(1000);
+  // }
 
   async pageChanged() {
     await this.getProducts();
