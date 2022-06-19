@@ -1,3 +1,10 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import {
+  AlertifyService,
+  MessageType,
+  Position,
+} from './../../services/admin/alertify.service';
+import { HttpClientService } from './../../services/common/http-client.service';
 import {
   DeleteDialogComponent,
   DeleteState,
@@ -25,9 +32,10 @@ export class DeleteDirective {
   constructor(
     private element: ElementRef,
     private _renderer: Renderer2,
-    private productService: ProductService,
+    private httpClientService: HttpClientService,
     private spinner: NgxSpinnerService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private alertifyService: AlertifyService
   ) {
     const img = _renderer.createElement('img');
     img.setAttribute('src', '../../../../../assets/delete.png');
@@ -37,6 +45,7 @@ export class DeleteDirective {
     _renderer.appendChild(element.nativeElement, img);
   }
   @Input() id: string;
+  @Input() controller: string;
   @Output() callback: EventEmitter<any> = new EventEmitter();
 
   @HostListener('click')
@@ -44,19 +53,47 @@ export class DeleteDirective {
     this.openDialog(async () => {
       this.spinner.show(SpinnerType.BallRunningDots);
       const td: HTMLTableCellElement = this.element.nativeElement;
-      await this.productService.delete(this.id);
-      $(td.parentElement).animate(
-        {
-          opacity: 0,
-          left: '+=50',
-          height: 'toogle',
-        },
-        700,
-        () => {
-          this.callback.emit();
-        }
-      );
-      this.spinner.hide(SpinnerType.BallRunningDots);
+      this.httpClientService
+        .delete(
+          {
+            controller: this.controller,
+          },
+          this.id
+        )
+        .subscribe(
+          (data) => {
+            $(td.parentElement).animate(
+              {
+                opacity: 0,
+                left: '+=50',
+                height: 'toogle',
+              },
+              700,
+              () => {
+                this.callback.emit();
+                this.alertifyService.message(
+                  'Product has been successfully deleted',
+                  {
+                    dismissOthers: true,
+                    messageType: MessageType.Success,
+                    position: Position.TopRight,
+                  }
+                );
+              }
+            );
+          },
+          (errroResponse: HttpErrorResponse) => {
+            this.spinner.hide(SpinnerType.BallRunningDots);
+            this.alertifyService.message(
+              'Error occured while deleting product',
+              {
+                dismissOthers: true,
+                messageType: MessageType.Error,
+                position: Position.TopRight,
+              }
+            );
+          }
+        );
     });
   }
 
