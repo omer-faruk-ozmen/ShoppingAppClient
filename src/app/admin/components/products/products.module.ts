@@ -1,3 +1,4 @@
+import { DialogModule } from './../../../dialogs/dialog.module';
 import { FileUploadComponent } from './../../../services/common/file-upload/file-upload.component';
 import { DeleteDirective } from './../../../directives/admin/delete.directive';
 import { NgModule } from '@angular/core';
@@ -24,7 +25,6 @@ import { FileUploadModule } from 'src/app/services/common/file-upload/file-uploa
     CreateComponent,
     ListComponent,
     DeleteDirective,
-    DeleteDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -37,7 +37,7 @@ import { FileUploadModule } from 'src/app/services/common/file-upload/file-uploa
     MatButtonModule,
     MatTableModule,
     MatPaginatorModule,
-    MatDialogModule,
+    DialogModule,
     FileUploadModule,
   ],
 })
