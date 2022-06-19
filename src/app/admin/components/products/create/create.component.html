@@ -1,4 +1,4 @@
-<div class="product-create">Ürün Ekle</div>
+<div class="product-create">Add Product</div>
 
 <mat-form-field appearance="fill" class="product-create">
     <mat-label>Name</mat-label>
@@ -15,7 +15,7 @@
     <input matInput type="number" min="0" value="0" #txtPrice>
 </mat-form-field>
 
-
-
+<app-file-upload [options]="fileUploadOptions"></app-file-upload>
+<hr>
 <button mat-raised-button color="primary" class="button" (click)="create(txtName,txtStock,txtPrice)">Create
     Product</button>
