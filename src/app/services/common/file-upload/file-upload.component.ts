@@ -1,3 +1,4 @@
+import { SpinnerType } from './../../../base/base.component';
 import { DialogService } from './../dialog/dialog.service';
 import {
   FileUploadDialogComponent,
@@ -22,6 +23,7 @@ import {
   FileSystemDirectoryEntry,
 } from 'ngx-file-drop';
 import { HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { NgxSpinnerService } from 'ngx-spinner';
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
@@ -33,7 +35,8 @@ export class FileUploadComponent {
     private alertifyService: AlertifyService,
     private customToastrService: CustomToastrService,
     private dialog: MatDialog,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private spinner: NgxSpinnerService
   ) {}
 
   public files: NgxFileDropEntry[];
@@ -52,6 +55,7 @@ export class FileUploadComponent {
       componentType: FileUploadDialogComponent,
       data: FileUploadDialogState.Yes,
       afterClosed: () => {
+        this.spinner.show(SpinnerType.BallRunningDots);
         this.httpClientService
           .post(
             {
@@ -64,6 +68,7 @@ export class FileUploadComponent {
           )
           .subscribe(
             (data) => {
+              this.spinner.hide(SpinnerType.BallRunningDots);
               const message = 'File Upload Successful';
               if (this.options.isAdminPage) {
                 this.alertifyService.message(message, {
@@ -79,6 +84,7 @@ export class FileUploadComponent {
               }
             },
             (errorResponse: HttpErrorResponse) => {
+              this.spinner.hide(SpinnerType.BallRunningDots);
               const message = 'File Upload Failed';
               if (this.options.isAdminPage) {
                 this.alertifyService.message(message, {

@@ -1,3 +1,5 @@
+import { SelectProductImageDialogComponent } from './../../../../dialogs/select-product-image-dialog/select-product-image-dialog.component';
+import { DialogService } from './../../../../services/common/dialog/dialog.service';
 import {
   AlertifyService,
   MessageType,
@@ -26,7 +28,8 @@ export class ListComponent extends BaseComponent implements OnInit {
   constructor(
     private productService: ProductService,
     spinner: NgxSpinnerService,
-    private alertifyService: AlertifyService
+    private alertifyService: AlertifyService,
+    private dialogService: DialogService
   ) {
     super(spinner);
   }
@@ -37,6 +40,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     'price',
     'createdDate',
     'updatedDate',
+    'photos',
     'editing',
     'delete',
   ];
@@ -69,13 +73,15 @@ export class ListComponent extends BaseComponent implements OnInit {
     this.paginator.length = allProducts.totalCount;
   }
 
-  // delete(id, event) {
-  //   this.alertifyService.message('Başarılı', {
-  //     messageType: MessageType.Notify,
-  //   });
-  //   const img: HTMLImageElement = event.srcElement;
-  //   $(img.parentElement.parentElement).fadeOut(1000);
-  // }
+  addProductImages(id: string) {
+    this.dialogService.openDialog({
+      componentType: SelectProductImageDialogComponent,
+      data: id,
+      options: {
+        width: '1000px',
+      },
+    });
+  }
 
   async pageChanged() {
     await this.getProducts();

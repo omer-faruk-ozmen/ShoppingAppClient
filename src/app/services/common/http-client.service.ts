@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class HttpClientService {
   constructor(
-    private httpClinet: HttpClient,
+    private httpClient: HttpClient,
     @Inject('baseUrl') private baseUrl: string
   ) {}
 
@@ -30,7 +30,7 @@ export class HttpClientService {
         requestParameter.queryString ? `?${requestParameter.queryString}` : ''
       }`;
 
-    return this.httpClinet.get<T>(url, { headers: requestParameter.headers });
+    return this.httpClient.get<T>(url, { headers: requestParameter.headers });
   }
 
   post<T>(
@@ -45,7 +45,7 @@ export class HttpClientService {
       }
       `;
 
-    return this.httpClinet.post<T>(url, body, {
+    return this.httpClient.post<T>(url, body, {
       headers: requestParameter.headers,
     });
   }
@@ -61,7 +61,7 @@ export class HttpClientService {
         requestParameter.queryString ? `?${requestParameter.queryString}` : ''
       }`;
 
-    return this.httpClinet.put<T>(url, body, {
+    return this.httpClient.put<T>(url, body, {
       headers: requestParameter.headers,
     });
   }
@@ -77,7 +77,7 @@ export class HttpClientService {
         requestParameter.queryString ? `?${requestParameter.queryString}` : ''
       }`;
 
-    return this.httpClinet.delete<T>(url, {
+    return this.httpClient.delete<T>(url, {
       headers: requestParameter.headers,
     });
   }

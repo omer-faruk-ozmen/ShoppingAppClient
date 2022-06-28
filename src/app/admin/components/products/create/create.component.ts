@@ -15,7 +15,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.scss'],
 })
-export class CreateComponent extends BaseComponent implements OnInit {
+export class CreateComponent extends BaseComponent {
   constructor(
     spinner: NgxSpinnerService,
     private productService: ProductService,
@@ -23,16 +23,6 @@ export class CreateComponent extends BaseComponent implements OnInit {
   ) {
     super(spinner);
   }
-
-  ngOnInit(): void {}
-
-  @Output() fileUploadOptions: Partial<FileUploadOptions> = {
-    action: 'upload',
-    controller: 'products',
-    explanation: 'Please select or drag pictures',
-    isAdminPage: true,
-    accept: '.png, .jpg, .jpeg',
-  };
 
   create(
     name: HTMLInputElement,
