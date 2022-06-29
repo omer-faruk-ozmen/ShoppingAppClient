@@ -6,6 +6,7 @@ import { DeleteDialogComponent } from 'src/app/dialogs/delete-dialog/delete-dial
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SelectProductImageDialogComponent } from './select-product-image-dialog/select-product-image-dialog.component';
+import { MatCardModule, MatCardTitle } from '@angular/material/card';
 
 @NgModule({
   declarations: [DeleteDialogComponent, SelectProductImageDialogComponent],
@@ -15,6 +16,7 @@ import { SelectProductImageDialogComponent } from './select-product-image-dialog
     MatButtonModule,
     MatDialogModule,
     FileUploadModule,
+    MatCardModule,
   ],
 })
 export class DialogModule {}
