@@ -66,6 +66,9 @@
                     <small style="color: red;" *ngIf="submitted && component.password.errors?.required">Password must
                         not
                         be empty</small>
+                    <small style="color: red;" *ngIf="submitted && component.password.errors?.minlength">Password must
+                        not
+                        be empty</small>
                 </div>
             </div>
             <div class="form-floating">
