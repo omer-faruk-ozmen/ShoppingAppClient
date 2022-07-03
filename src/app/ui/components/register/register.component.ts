@@ -1,3 +1,5 @@
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BaseComponent } from './../../../base/base.component';
 import {
   CustomToastrService,
   ToastrMessageType,
@@ -20,12 +22,15 @@ import {
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent extends BaseComponent implements OnInit {
   constructor(
+    spinner: NgxSpinnerService,
     private formBuilder: FormBuilder,
     private userService: UserService,
     private toastrService: CustomToastrService
-  ) {}
+  ) {
+    super(spinner);
+  }
 
   form: FormGroup;
 
@@ -91,7 +96,7 @@ export class RegisterComponent implements OnInit {
 
     const result: Create_User = await this.userService.create(user);
 
-    if (result.succeeded == true) {
+    if (result.succeeded) {
       this.toastrService.message(result.message, 'User Successfully Created', {
         messageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight,
