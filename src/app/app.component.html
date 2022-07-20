@@ -21,19 +21,26 @@
                             <a class="nav-link active" aria-current="page" routerLink="basket">Basket</a>
                         </li>
 
-                        <button class="btn btn-outline-success" type="submit"><a routerLink="admin">Admin</a></button>
+                        <button class="btn btn-outline-success" type="submit" *ngIf="authService.isAuthenticated"><a
+                                routerLink="admin">Admin</a></button>
                     </ul>
                     <form class="d-flex">
                         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
                         <button class="btn btn-outline-success" type="submit">Search</button>
                     </form>
                     <ul class="navbar-nav mx-auto">
-                        <button class="btn btn-sm btn-outline-secondary" type="submit"><a
-                                routerLink="login">Login</a></button>
+                        <button class="btn btn-sm btn-outline-secondary" type="submit"
+                            *ngIf="!authService.isAuthenticated"><a routerLink="login">Login</a></button>
                     </ul>
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <button class="btn btn-sm btn-outline-secondary" type="submit"><a routerLink="register">Sign
+                        <button class="btn btn-sm btn-outline-secondary" type="submit"
+                            *ngIf="!authService.isAuthenticated"><a routerLink="register">Sign
                                 up</a></button>
+                    </ul>
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <button class="btn btn-sm btn-outline-secondary" style="color: red;cursor: pointer;"
+                            (click)="signOut()" type="submit" *ngIf="authService.isAuthenticated"><a>Sign
+                                out</a></button>
                     </ul>
 
                 </div>

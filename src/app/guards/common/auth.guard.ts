@@ -1,3 +1,7 @@
+import {
+  AuthService,
+  _isAuthenticated,
+} from './../../services/common/auth.service';
 import { SpinnerType } from './../../base/base.component';
 import { NgxSpinnerService } from 'ngx-spinner';
 import {
@@ -29,19 +33,7 @@ export class AuthGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     this.spinner.show(SpinnerType.BallRunningDots);
 
-    const token: string = localStorage.getItem('accessToken');
-
-    //const decodeToken = this.jwtHelper.decodeToken(token);
-    //const expirationDate = this.jwtHelper.getTokenExpirationDate(token);
-    let expired: boolean;
-    try {
-      expired = this.jwtHelper.isTokenExpired(token);
-    } catch {
-      expired = true;
-    }
-    console.log(state.url);
-
-    if (!token || expired) {
+    if (!_isAuthenticated) {
       this.toastrService.message('Please Login!', 'Unauthorized Action', {
         messageType: ToastrMessageType.Warning,
         position: ToastrPosition.TopRight,
