@@ -1,3 +1,6 @@
+import { async } from '@angular/core/testing';
+import { TokenResponse } from './../../../contracts/token/tokenResponse';
+import { HttpClientService } from './../../../services/common/http-client.service';
 import { AuthService } from './../../../services/common/auth.service';
 import {
   CustomToastrService,
@@ -9,6 +12,7 @@ import { BaseComponent, SpinnerType } from './../../../base/base.component';
 import { UserService } from './../../../services/common/models/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 
 @Component({
   selector: 'app-login',
@@ -22,9 +26,18 @@ export class LoginComponent extends BaseComponent implements OnInit {
     private toastrService: CustomToastrService,
     private authService: AuthService,
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private socialAuthService: SocialAuthService,
+    private httpClientService: HttpClientService
   ) {
     super(spinner);
+    socialAuthService.authState.subscribe(async (user: SocialUser) => {
+      this.showSpinner(SpinnerType.BallRunningDots);
+      await userService.googleLogin(user, () => {
+        authService.identityCheck();
+        this.hideSpinner(SpinnerType.BallRunningDots);
+      });
+    });
   }
 
   ngOnInit(): void {}
