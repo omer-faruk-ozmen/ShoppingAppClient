@@ -13,6 +13,7 @@ import { UserService } from './../../../services/common/models/user.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
+import { UserAuthService } from 'src/app/services/common/models/user-auth.service';
 
 @Component({
   selector: 'app-login',
@@ -21,7 +22,7 @@ import { SocialAuthService, SocialUser } from '@abacritt/angularx-social-login';
 })
 export class LoginComponent extends BaseComponent implements OnInit {
   constructor(
-    private userService: UserService,
+    private userAuthService: UserAuthService,
     spinner: NgxSpinnerService,
     private toastrService: CustomToastrService,
     private authService: AuthService,
@@ -33,10 +34,20 @@ export class LoginComponent extends BaseComponent implements OnInit {
     super(spinner);
     socialAuthService.authState.subscribe(async (user: SocialUser) => {
       this.showSpinner(SpinnerType.BallRunningDots);
-      await userService.googleLogin(user, () => {
-        authService.identityCheck();
-        this.hideSpinner(SpinnerType.BallRunningDots);
-      });
+
+      switch (user.provider) {
+        case 'GOOGLE':
+          await userAuthService.googleLogin(user, () => {
+            authService.identityCheck();
+            this.hideSpinner(SpinnerType.BallRunningDots);
+          });
+          break;
+        case 'FACEBOOK':
+          //...
+          break;
+        default:
+          break;
+      }
     });
   }
 
@@ -45,7 +56,7 @@ export class LoginComponent extends BaseComponent implements OnInit {
   async login(usernameOrEmail: string, password: string) {
     this.showSpinner(SpinnerType.BallRunningDots);
     try {
-      await this.userService.login(usernameOrEmail, password, () => {
+      await this.userAuthService.login(usernameOrEmail, password, () => {
         this.authService.identityCheck();
 
         this.activatedRoute.queryParams.subscribe((queryParams) => {
