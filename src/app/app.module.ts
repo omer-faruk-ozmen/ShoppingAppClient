@@ -1,3 +1,4 @@
+import { HttpErrorHandlerInterceptorService } from './services/common/http-error-handler-interceptor.service';
 import { environment } from './../environments/environment.prod';
 import { LoginComponent } from './ui/components/login/login.component';
 import { UiModule } from './ui/ui.module';
@@ -9,7 +10,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
 import {
   GoogleLoginProvider,
@@ -57,6 +58,11 @@ import {
         ],
         onError: (err) => console.log(err),
       } as SocialAuthServiceConfig,
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorHandlerInterceptorService,
+      multi: true,
     },
   ],
   bootstrap: [AppComponent],
