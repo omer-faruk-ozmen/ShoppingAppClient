@@ -1,3 +1,4 @@
+import { Token } from './../../../contracts/token/token';
 import {
   ToastrMessageType,
   ToastrPosition,
@@ -18,6 +19,30 @@ export class UserAuthService {
     private toastrService: CustomToastrService
   ) {}
 
+  async refreshTokenLogin(
+    refreshToken: string,
+    callBackFunction?: () => void
+  ): Promise<any> {
+    const observable: Observable<any | TokenResponse> =
+      this.httpClientService.post(
+        {
+          action: 'refreshtokenlogin',
+          controller: 'auth',
+        },
+        { refreshToken: refreshToken }
+      );
+
+    const tokenResponse: TokenResponse = (await firstValueFrom(
+      observable
+    )) as TokenResponse;
+    if (tokenResponse) {
+      localStorage.setItem('accessToken', tokenResponse.token.accessToken);
+      localStorage.setItem('refreshToken', tokenResponse.token.refreshToken);
+    }
+
+    callBackFunction();
+  }
+
   async login(
     usernameOrEmail: string,
     password: string,
@@ -36,6 +61,7 @@ export class UserAuthService {
     )) as TokenResponse;
     if (tokenResponse) {
       localStorage.setItem('accessToken', tokenResponse.token.accessToken);
+      localStorage.setItem('refreshToken', tokenResponse.token.refreshToken);
 
       this.toastrService.message('Login Successful', 'Success', {
         messageType: ToastrMessageType.Success,
@@ -64,6 +90,7 @@ export class UserAuthService {
 
     if (tokenResponse) {
       localStorage.setItem('accessToken', tokenResponse.token.accessToken);
+      localStorage.setItem('refreshToken', tokenResponse.token.refreshToken);
       this.toastrService.message('Google Login Successful', 'Success', {
         messageType: ToastrMessageType.Success,
         position: ToastrPosition.TopRight,
