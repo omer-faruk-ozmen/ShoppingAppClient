@@ -1,3 +1,6 @@
+import { HubUrls } from './../../../constants/hub-urls';
+import { ReceiveFunctions } from './../../../constants/receive-functions';
+import { SignalRService } from './../../../services/common/signalr.service';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BaseComponent, SpinnerType } from './../../../base/base.component';
 import { Component, OnInit } from '@angular/core';
@@ -12,13 +15,20 @@ import {
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent extends BaseComponent implements OnInit {
-  constructor(private alertify: AlertifyService, spinner: NgxSpinnerService) {
+  constructor(private alertify: AlertifyService, spinner: NgxSpinnerService,private signalRService:SignalRService) {
     super(spinner);
+    signalRService.start(HubUrls.ProductHub)
   }
 
   ngOnInit(): void {
     this.showSpinner(SpinnerType.BallScaleMultiple);
     this.alertify.dismiss();
+    this.signalRService.on(ReceiveFunctions.ProductAddedMessageReceiveFunction,message=>{
+      this.alertify.message(message,{
+        messageType:MessageType.Notify,
+        position:Position.TopRight
+      })
+    })
   }
   m() {
     this.alertify.message('Deneme', {
