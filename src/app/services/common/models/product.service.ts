@@ -1,5 +1,6 @@
+
 import { List_Product_Image } from './../../../contracts/list_product_image';
-import { firstValueFrom, Observable } from 'rxjs';
+import { first, firstValueFrom, Observable } from 'rxjs';
 import { List_Product } from './../../../contracts/list_product';
 import { HttpClientService } from './../http-client.service';
 import { Injectable } from '@angular/core';
@@ -17,12 +18,12 @@ export class ProductService {
     size: number = 5,
     successCallBack?: () => void,
     errorCallBack?: (errorMessage: string) => void
-  ): Promise<{ totalCount: number; products: List_Product[] }> {
+  ): Promise<{ totalProductCount: number; products: List_Product[] }> {
     const promiseData: Promise<{
-      totalCount: number;
+      totalProductCount: number;
       products: List_Product[];
     }> = this.httpClientService
-      .get<{ totalCount: number; products: List_Product[] }>({
+      .get<{ totalProductCount: number; products: List_Product[] }>({
         controller: 'products',
         queryString: `page=${page}&size=${size}`,
       })
@@ -97,6 +98,22 @@ export class ProductService {
       id
     );
     await firstValueFrom(deleteObservable);
+    successCallBack();
+  }
+
+  async changeShowcaseImage(
+    imageId: string,
+    productId: string,
+    successCallBack?: () => void
+  ):Promise<void> {
+    const changeShowcaseImageObservable = this.httpClientService.put(
+      {
+        controller: 'products',
+        action: 'ChangeShowcaseImage',
+        queryString: `imageId=${imageId}&productId=${productId}`,
+      },{}
+    );
+    await firstValueFrom(changeShowcaseImageObservable);
     successCallBack();
   }
 }

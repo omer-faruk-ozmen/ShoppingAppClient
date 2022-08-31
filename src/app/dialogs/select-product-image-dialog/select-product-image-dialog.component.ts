@@ -71,6 +71,14 @@ export class SelectProductImageDialogComponent
       },
     });
   }
+
+  showCase(imageId:string){
+    this.spinner.show(SpinnerType.BallRunningDots)
+    this.productService.changeShowcaseImage(imageId,this.data as string,()=>{
+      this.spinner.hide(SpinnerType.BallRunningDots)
+      
+    })
+  }
 }
 
 export enum SelectProductImageState {
