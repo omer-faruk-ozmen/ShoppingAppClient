@@ -41,14 +41,8 @@ export class BasketsComponent extends BaseComponent implements OnInit {
 
   async removeBasketItem(basketItemId:string){
     this.showSpinner(SpinnerType.BallRunningDots);
-
-
-    
     await this.basketService.remove(basketItemId);
-
     $("."+basketItemId).fadeOut(1500,()=>this.hideSpinner(SpinnerType.BallRunningDots));
-
-    
   }
 
 

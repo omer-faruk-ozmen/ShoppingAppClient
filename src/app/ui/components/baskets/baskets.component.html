@@ -2,9 +2,6 @@
     <div class="row w-100">
         <div class="col-lg-12 col-md-12 col-12">
             <h3 class="display-5 mb-2 text-center">Shopping Cart</h3>
-            <p class="mb-5 text-center">
-                <i class="text-info font-weight-bold">{{basketItems.length}}</i> items in your cart
-            </p>
             <table id="shoppingCart" class="table table-condensed table-responsive">
                 <thead>
                     <tr>
@@ -30,7 +27,7 @@
                         </td>
                         <td data-th="Price">{{basketItem.price}}</td>
                         <td data-th="Quantity">
-                            <input type="number" class="form-control form-control-sm text-center" [value]="basketItem.quantity" data-id="basketItem.basketItemId" (change)="changeQuantity($event)">
+                            <input type="number" class="form-control form-control-sm text-center" [value]="basketItem.quantity" data-id="{{basketItem.basketItemId}}" (change)="changeQuantity($event)">
                         </td>
                         <td class="actions" data-th="">
                             <div class="text-right">
