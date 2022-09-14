@@ -1,3 +1,6 @@
+import { SpinnerType } from './../../base/base.component';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { Router } from '@angular/router';
 import { UserAuthService } from 'src/app/services/common/models/user-auth.service';
 import {
   CustomToastrService,
@@ -20,8 +23,10 @@ import { catchError, Observable, of } from 'rxjs';
 export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
   constructor(
     private toastrService: CustomToastrService,
-    private userAuthService: UserAuthService
-  ) {}
+    private userAuthService: UserAuthService,
+    private router: Router,
+    private spinner: NgxSpinnerService
+  ) { }
   intercept(
     req: HttpRequest<any>,
     next: HttpHandler
@@ -30,17 +35,35 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
       catchError((error) => {
         switch (error.status) {
           case HttpStatusCode.Unauthorized:
-            this.toastrService.message(
-              'You are not authorized to do this operation!',
-              'Unauthorized!',
-              {
-                messageType: ToastrMessageType.Error,
-                position: ToastrPosition.BottomFullWidth,
-              }
-            );
             this.userAuthService
-              .refreshTokenLogin(localStorage.getItem('refreshToken'))
-              .then((data) => {});
+              .refreshTokenLogin(
+                localStorage.getItem('refreshToken'),
+                (state) => {
+                  if (!state) {
+                    const url = this.router.url;
+
+                    if (url == '/products') {
+                      this.toastrService.message(
+                        'Login is required to add items to cart.',
+                        'You must be logged in.',
+                        {
+                          messageType: ToastrMessageType.Warning,
+                          position: ToastrPosition.TopRight,
+                        }
+                      );
+                    } else
+                      this.toastrService.message(
+                        'You are not authorized to do this operation!',
+                        'Unauthorized!',
+                        {
+                          messageType: ToastrMessageType.Error,
+                          position: ToastrPosition.BottomFullWidth,
+                        }
+                      );
+                  }
+                }
+              )
+              .then((data) => { });
             break;
           case HttpStatusCode.InternalServerError:
             this.toastrService.message(
@@ -73,6 +96,7 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
             );
             break;
         }
+        this.spinner.hide(SpinnerType.BallRunningDots);
         return of(error);
       })
     );

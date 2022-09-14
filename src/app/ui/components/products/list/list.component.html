@@ -7,7 +7,7 @@
             <p class="card-text">
                 Price : {{product.price | currency:'₺'}} | Stock : {{product.stock}}
             </p>
-            <a href="#" class="btn btn-success">Add To Basket</a>
+            <a class="btn btn-success" (click)="addToBasket(product)">Add To Cart</a>
         </div>
     </div>
 </div>

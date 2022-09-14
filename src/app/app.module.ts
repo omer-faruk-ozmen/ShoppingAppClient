@@ -1,3 +1,4 @@
+import { BasketsModule } from './ui/components/baskets/baskets.module';
 import { HttpErrorHandlerInterceptorService } from './services/common/http-error-handler-interceptor.service';
 import { environment } from './../environments/environment.prod';
 import { LoginComponent } from './ui/components/login/login.component';
@@ -12,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtModule } from '@auth0/angular-jwt';
+
 import {
   GoogleLoginProvider,
   SocialAuthServiceConfig,
@@ -26,6 +28,7 @@ import {
     UiModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    BasketsModule,
     NgxSpinnerModule,
     HttpClientModule,
     JwtModule.forRoot({

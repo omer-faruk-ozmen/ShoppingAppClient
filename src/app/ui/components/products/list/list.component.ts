@@ -1,3 +1,8 @@
+import { CustomToastrService, ToastrMessageType, ToastrPosition } from './../../../../services/ui/custom-toastr.service';
+import { Create_Basket_Item } from './../../../../contracts/basket/create-basket-item';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { BaseComponent, SpinnerType } from './../../../../base/base.component';
+import { BasketService } from './../../../../services/common/models/basket.service';
 import { FilesService } from './../../../../services/common/models/file.service';
 import { async } from '@angular/core/testing';
 import { ActivatedRoute } from '@angular/router';
@@ -11,14 +16,19 @@ import { BaseUrl } from 'src/app/contracts/baseUrl';
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnInit {
+export class ListComponent extends BaseComponent implements OnInit {
   constructor(
     private productService: ProductService,
     private activatedRoute: ActivatedRoute,
-    private filesService: FilesService
-  ) {}
-  
-  productDefaultImage='../../../../../assets/products.png'
+    private filesService: FilesService,
+    private basketService: BasketService,
+    private customToastrService:CustomToastrService,
+    spinner: NgxSpinnerService
+  ) {
+    super(spinner);
+  }
+
+  productDefaultImage = '../../../../../assets/products.png';
   currentPageNo: number;
   totalProductCount: number;
   totalPageCount: number;
@@ -43,13 +53,18 @@ export class ListComponent implements OnInit {
 
       this.products = data.products;
 
-      
-      this.products = this.products.map<List_Product>(p => {
+      this.products = this.products.map<List_Product>((p) => {
         const listProduct: List_Product = {
           id: p.id,
           createdDate: p.createdDate,
           productImageFiles: p.productImageFiles,
-           imagePath:`${p.productImageFiles.find(p=>p.showcase) ? this.baseUrl.url+'/'+p.productImageFiles.find(p=>p.showcase).path : this.productDefaultImage }` ,
+          imagePath: `${
+            p.productImageFiles.find((p) => p.showcase)
+              ? this.baseUrl.url +
+                '/' +
+                p.productImageFiles.find((p) => p.showcase).path
+              : this.productDefaultImage
+          }`,
           name: p.name,
           price: p.price,
           stock: p.stock,
@@ -72,5 +87,18 @@ export class ListComponent implements OnInit {
         for (let i = this.currentPageNo - 3; i <= this.currentPageNo + 3; i++)
           this.pageList.push(i);
     });
+  }
+
+  async addToBasket(product: List_Product) {
+    this.showSpinner(SpinnerType.BallRunningDots)
+    let _basketItem: Create_Basket_Item = new Create_Basket_Item();
+    _basketItem.productId = product.id;
+    _basketItem.quantity = 1;
+    await this.basketService.add(_basketItem);
+    this.hideSpinner(SpinnerType.BallRunningDots)
+    this.customToastrService.message(`${product.name} has been successfully added to cart ` ,"Added To Cart",{
+      messageType:ToastrMessageType.Success,
+      position:ToastrPosition.TopRight
+    })
   }
 }

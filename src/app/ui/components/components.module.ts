@@ -1,3 +1,4 @@
+import { BasketsComponent } from './baskets/baskets.component';
 import { RegisterModule } from './register/register.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -15,5 +16,6 @@ import { RegisterComponent } from './register/register.component';
     BasketsModule,
     RegisterModule,
   ],
+  exports:[]
 })
 export class ComponentsModule {}

@@ -23,6 +23,7 @@
     "@angular/router": "^14.1.0",
     "@auth0/angular-jwt": "^5.0.2",
     "@microsoft/signalr": "^6.0.8",
+    "@popperjs/core": "^2.11.6",
     "alertifyjs": "^1.13.1",
     "angularx-social-login": "^4.1.0",
     "bootstrap": "^5.1.3",

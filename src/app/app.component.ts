@@ -1,5 +1,5 @@
+
 import { Router } from '@angular/router';
-import { Position } from './services/admin/alertify.service';
 import {
   CustomToastrService,
   ToastrMessageType,
@@ -22,6 +22,7 @@ export class AppComponent {
     private router: Router
   ) {
     authService.identityCheck();
+
   }
 
   signOut() {
