@@ -17,18 +17,27 @@ import {
 export class DashboardComponent extends BaseComponent implements OnInit {
   constructor(private alertify: AlertifyService, spinner: NgxSpinnerService,private signalRService:SignalRService) {
     super(spinner);
+    signalRService.start(HubUrls.OrderHub)
     signalRService.start(HubUrls.ProductHub)
+    
   }
 
   ngOnInit(): void {
     this.showSpinner(SpinnerType.BallScaleMultiple);
-    this.alertify.dismiss();
+
     this.signalRService.on(ReceiveFunctions.ProductAddedMessageReceiveFunction,message=>{
       this.alertify.message(message,{
         messageType:MessageType.Notify,
         position:Position.TopRight
       })
-    })
+    });
+
+    this.signalRService.on(ReceiveFunctions.OrderAddedMessageReceiveFunction,message=>{
+      this.alertify.message(message,{
+        messageType:MessageType.Notify,
+        position:Position.TopCenter
+      })
+    });
   }
   m() {
     this.alertify.message('Deneme', {

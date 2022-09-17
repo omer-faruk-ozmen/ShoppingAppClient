@@ -44,7 +44,6 @@ export class AppComponent {
   }
 
   loadComponent() {
-
     this.dynamicLoadComponentService.loadComponent(
       ComponentType.BasketsComponent,
       this.dynamicLoadComponentDirective.viewContainerRef
