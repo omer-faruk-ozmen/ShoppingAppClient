@@ -6,8 +6,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SelectProductImageDialogComponent } from './select-product-image-dialog/select-product-image-dialog.component';
 import { MatCardModule } from '@angular/material/card';
+import { BasketItemRemoveDialogComponent } from './basket-item-remove-dialog/basket-item-remove-dialog.component';
 @NgModule({
-  declarations: [DeleteDialogComponent, SelectProductImageDialogComponent],
+  declarations: [DeleteDialogComponent, SelectProductImageDialogComponent, BasketItemRemoveDialogComponent],
   imports: [
     CommonModule,
     MatDialogModule,
