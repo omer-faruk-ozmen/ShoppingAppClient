@@ -1,3 +1,4 @@
+import { Single_Order } from './../../../contracts/order/single_order';
 import { List_Order } from './../../../contracts/order/list_order';
 import { Observable, firstValueFrom } from 'rxjs';
 import { Create_Order } from './../../../contracts/order/create_order';
@@ -31,6 +32,20 @@ export class OrderService {
     const promiseData = firstValueFrom(observable);
     promiseData.then(value => successCallBack())
       .catch(error => errorCallBack(error))
+
+    return await promiseData;
+  }
+
+  async getOrderById(id:string,successCallBack?: () => void, errorCallBack?: (errorMessage: string) => void){
+    const observable:Observable<Single_Order> = this.httpClientService.get<Single_Order>({
+    
+      controller:"orders"
+    },id);
+
+    const promiseData=firstValueFrom(observable);
+
+    promiseData.then(value=>successCallBack())
+    .catch(error=>errorCallBack(error))
 
     return await promiseData;
   }

@@ -25,7 +25,7 @@
                                 </div>
                             </div>
                         </td>
-                        <td data-th="Price">{{basketItem.price}}</td>
+                        <td data-th="Price">{{basketItem.price|currency: "₺"}}</td>
                         <td data-th="Quantity">
                             <input type="number" class="form-control form-control-sm text-center" [value]="basketItem.quantity" data-id="{{basketItem.basketItemId}}" (change)="changeQuantity($event)">
                         </td>
@@ -42,17 +42,11 @@
             </table>
             <div class="float-right text-right">
                 <h4>Subtotal:</h4>
-                <h1>$99.00</h1>
+                <h1>{{totalPrice |currency: "₺"}}</h1>
             </div>
         </div>
     </div>
-    <div class="row mt-4 d-flex align-items-center">
-        <div  class="col-sm-6 order-md-2 text-right">
-            <a *ngIf="basketItemsLength>=1" class="btn btn-primary mb-4 btn-lg pl-5 pr-5" (click)="checkout()">Checkout</a>
-        </div>
-        <div class="col-sm-6 mb-3 mb-m-1 order-md-1 text-md-left">
-            <a routerLink="/products">
-                <i class="fas fa-arrow-left mr-2"></i> Continue Shopping</a>
-        </div>
+    <div class="d-flex justify-content-end">
+            <a *ngIf="basketItems?.length>0" class="btn btn-primary mb-4 btn-lg pl-5 pr-5" (click)="checkout()">Checkout</a>
     </div>
 </section>

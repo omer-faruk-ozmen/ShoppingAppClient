@@ -4,7 +4,7 @@ import { environment } from './../environments/environment.prod';
 import { LoginComponent } from './ui/components/login/login.component';
 import { UiModule } from './ui/ui.module';
 import { AdminModule } from './admin/admin.module';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
@@ -71,7 +71,7 @@ import { DynamicLoadComponentDirective } from './directives/common/dynamic-load-
       provide: HTTP_INTERCEPTORS,
       useClass: HttpErrorHandlerInterceptorService,
       multi: true,
-    },
+    }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

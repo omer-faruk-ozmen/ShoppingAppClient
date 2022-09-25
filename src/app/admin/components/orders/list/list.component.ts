@@ -1,3 +1,5 @@
+import { OrderDetailDialogComponent, OrderDetailDialogState } from './../../../../dialogs/order-detail-dialog/order-detail-dialog.component';
+import { DialogService } from './../../../../services/common/dialog/dialog.service';
 import { OrderService } from './../../../../services/common/models/order.service';
 import { List_Order } from './../../../../contracts/order/list_order';
 import { BaseComponent, SpinnerType } from './../../../../base/base.component';
@@ -17,7 +19,8 @@ export class ListComponent extends BaseComponent implements OnInit {
   constructor(
     private orderService: OrderService,
     spinner: NgxSpinnerService,
-    private alertifyService: AlertifyService
+    private alertifyService: AlertifyService,
+    private dialogService:DialogService
   ) {
     super(spinner);
   }
@@ -28,6 +31,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     'totalPrice',
     'createdDate',
     'updatedDate',
+    'viewDetail',
     'editing',
     'delete'
   ];
@@ -58,6 +62,16 @@ export class ListComponent extends BaseComponent implements OnInit {
       allOrders.orders
     );
     this.paginator.length = allOrders.totalOrderCount;
+  }
+
+  showOrderDetail(id:string){
+    this.dialogService.openDialog({
+      componentType:OrderDetailDialogComponent,
+      data:id,
+      options:{
+        width:"80%"
+      }
+    })
   }
 
 
