@@ -1,10 +1,9 @@
 import { BasketsModule } from './ui/components/baskets/baskets.module';
 import { HttpErrorHandlerInterceptorService } from './services/common/http-error-handler-interceptor.service';
-import { environment } from './../environments/environment.prod';
 import { LoginComponent } from './ui/components/login/login.component';
 import { UiModule } from './ui/ui.module';
 import { AdminModule } from './admin/admin.module';
-import { CUSTOM_ELEMENTS_SCHEMA, LOCALE_ID, NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA,  NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';

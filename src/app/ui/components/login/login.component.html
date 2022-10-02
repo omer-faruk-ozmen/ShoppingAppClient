@@ -25,11 +25,15 @@
                     not be empty</small>
             </div>
         </div>
-        <asl-google-signin-button></asl-google-signin-button>
+        <div>
+            <asl-google-signin-button></asl-google-signin-button>
+        </div>
+        
 
 
         <button class="w-100 btn btn-lg btn-primary mt-3" type="submit"
             (click)="login(txtUsernameOrEmail.value,txtPassword.value)">Login</button>
+            <a href="forgot-password">Forgotten password?</a>
 
         <p class="mt-5 mb-3 text-muted">&copy; 2022</p>
 

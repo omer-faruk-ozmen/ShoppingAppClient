@@ -103,17 +103,4 @@ export class DeleteDirective {
     });
   }
 
-  // openDialog(afterClosed: any): void {
-  //   const dialogRef = this.dialog.open(DeleteDialogComponent, {
-  //     width: '250px',
-  //     data: DeleteState.Yes,
-  //   });
-
-  //   dialogRef.afterClosed().subscribe((result) => {
-  //     console.log('The dialog was closed');
-  //     if (result == DeleteState.Yes) {
-  //       afterClosed();
-  //     }
-  //   });
-  // }
 }

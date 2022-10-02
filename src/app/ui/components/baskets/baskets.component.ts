@@ -43,14 +43,26 @@ export class BasketsComponent extends BaseComponent implements OnInit {
   totalPrice:number=0;
 
   async ngOnInit() {
+    this.showSpinner(SpinnerType.BallRunningDots)
+    const getBasketItems = await this.getBasketItemsList();
+
+    if(getBasketItems){
+      this.basketItems=getBasketItems
+      this.basketItems.forEach(element=>{
+        this.totalPrice=this.totalPrice+(element.price*element.quantity);
+      })
+  
+      this.hideSpinner(SpinnerType.BallRunningDots);
+    }else{
+      this.basketItems=[]
+    }
+
+
+  }
+
+  async getBasketItemsList(){
     this.showSpinner(SpinnerType.BallRunningDots);
-    this.basketItems = await this.basketService.get();
-
-    this.basketItems.forEach(element=>{
-      this.totalPrice=this.totalPrice+(element.price*element.quantity);
-    })
-
-    this.hideSpinner(SpinnerType.BallRunningDots);
+    return await this.basketService.get();
   }
 
   async changeQuantity(object: any) {

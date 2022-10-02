@@ -36,7 +36,7 @@
             </div>
 
             <div class="form-floating">
-                <input formControlName="username" type="text" class="form-control" id="floatingUsername"
+                <input formControlName="username" autocomplete="off" type="text" class="form-control" id="floatingUsername"
                     placeholder="Username" [ngClass]="{'is-invalid':submitted&& component.username.errors}">
                 <label for="floatingUsername">Username</label>
                 <div>
@@ -59,7 +59,7 @@
             </div>
 
             <div class="form-floating ">
-                <input formControlName="password" type="password" class="form-control mb-lg-0" id="floatingPassword"
+                <input formControlName="password" type="password" autocomplete="new-password" class="form-control mb-lg-0" id="floatingPassword"
                     placeholder="Password" [ngClass]="{'is-invalid':submitted&& component.password.errors}">
                 <label for="floatingPassword">Password</label>
                 <div>
