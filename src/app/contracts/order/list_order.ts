@@ -3,5 +3,5 @@ export class List_Order{
     username:string;
     totalPrice:number;
     createdDate:Date;
-    updatedDate:any;
+    completed:boolean
 }

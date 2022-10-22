@@ -10,8 +10,9 @@ import { MatCardModule } from '@angular/material/card';
 import { BasketItemRemoveDialogComponent } from './basket-item-remove-dialog/basket-item-remove-dialog.component';
 import { OrderDetailDialogComponent } from './order-detail-dialog/order-detail-dialog.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { CompleteOrderDialogComponent } from './complete-order-dialog/complete-order-dialog.component';
 @NgModule({
-  declarations: [DeleteDialogComponent, SelectProductImageDialogComponent, BasketItemRemoveDialogComponent, OrderDetailDialogComponent],
+  declarations: [DeleteDialogComponent, SelectProductImageDialogComponent, BasketItemRemoveDialogComponent, OrderDetailDialogComponent, CompleteOrderDialogComponent],
   imports: [
     CommonModule,
     MatDialogModule,

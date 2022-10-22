@@ -26,13 +26,12 @@ export class ListComponent extends BaseComponent implements OnInit {
   }
 
   displayedColumns: string[] = [
+    'completed',
     'orderCode',
     'username',
     'totalPrice',
     'createdDate',
-    'updatedDate',
     'viewDetail',
-    'editing',
     'delete'
   ];
   dataSource: MatTableDataSource<List_Order> = null;
