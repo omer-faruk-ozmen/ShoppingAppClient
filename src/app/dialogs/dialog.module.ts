@@ -11,8 +11,11 @@ import { BasketItemRemoveDialogComponent } from './basket-item-remove-dialog/bas
 import { OrderDetailDialogComponent } from './order-detail-dialog/order-detail-dialog.component';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CompleteOrderDialogComponent } from './complete-order-dialog/complete-order-dialog.component';
+import { AuthorizeMenuDialogComponent } from './authorize-menu-dialog/authorize-menu-dialog.component';
+import {MatBadgeModule} from '@angular/material/badge';
+
 @NgModule({
-  declarations: [DeleteDialogComponent, SelectProductImageDialogComponent, BasketItemRemoveDialogComponent, OrderDetailDialogComponent, CompleteOrderDialogComponent],
+  declarations: [DeleteDialogComponent, SelectProductImageDialogComponent, BasketItemRemoveDialogComponent, OrderDetailDialogComponent, CompleteOrderDialogComponent, AuthorizeMenuDialogComponent],
   imports: [
     CommonModule,
     MatDialogModule,
@@ -21,7 +24,8 @@ import { CompleteOrderDialogComponent } from './complete-order-dialog/complete-o
     FileUploadModule,
     MatCardModule,
     MatTableModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatBadgeModule
   ],
 })
 export class DialogModule {}

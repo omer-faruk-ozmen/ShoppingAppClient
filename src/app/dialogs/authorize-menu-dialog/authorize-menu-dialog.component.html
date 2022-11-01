@@ -1,0 +1,8 @@
+<h1 mat-dialog-title  matBadge="4" matBadgeOverlap="false">{{data.name}} Set Role</h1>
+<div mat-dialog-content>
+  <p> Set Role</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="close()">İptal</button>
+  <button mat-button [mat-dialog-close]="data" cdkFocusInitial >Evet</button>
+</div>
