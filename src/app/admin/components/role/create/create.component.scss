@@ -1,0 +1,18 @@
+:host {
+    display: flex;
+    flex-direction: column;
+    padding-top: 20px;
+  }
+  
+  .role-create{
+      position: relative;
+      margin: auto;
+      width: 65%;
+  }
+  
+  .button{
+      width: 20%;
+      position: relative;
+      margin: auto;
+      background-color: #4BB543;
+  }
