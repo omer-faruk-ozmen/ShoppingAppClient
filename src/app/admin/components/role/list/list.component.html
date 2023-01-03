@@ -14,7 +14,7 @@
 
       <ng-container matColumnDef="delete">
           <th mat-header-cell *matHeaderCellDef>Delete</th>
-          <td mat-cell *matCellDef="let element" appDelete controller="products" [id]="element.id"
+          <td mat-cell *matCellDef="let element" appDelete controller="roles" [id]="element.id"
               (callback)="getRoles()">
               <!--<img src="../../../../../assets/delete.png" width="25px"
                   height="25px" (click)="delete(element.id,$event)"/>-->

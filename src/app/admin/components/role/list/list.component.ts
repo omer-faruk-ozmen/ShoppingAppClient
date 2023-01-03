@@ -35,10 +35,10 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   async getRoles() {
     this.showSpinner(SpinnerType.BallAtom);
-    const allRoles: { datas:List_Role[] } =
+    const allRoles: { datas:List_Role[],totalRoleCount:number } =
       await this.roleService.getRoles(
         this.paginator ? this.paginator.pageIndex : 0,
-        this.paginator ? this.paginator.pageSize : 5,
+        this.paginator ? this.paginator.pageSize : 10,
         () => this.hideSpinner(SpinnerType.BallAtom),
         (errorMessage) =>
           this.alertifyService.message(errorMessage, {
@@ -47,12 +47,10 @@ export class ListComponent extends BaseComponent implements OnInit {
             position: Position.TopRight,
           })
       );
-
   
 
     this.dataSource = new MatTableDataSource<List_Role>(allRoles.datas);
-    this.paginator.length = allRoles.datas.length;
-    console.log(this.dataSource)
+    this.paginator.length = allRoles.totalRoleCount;
   }
 
   async pageChanged() {

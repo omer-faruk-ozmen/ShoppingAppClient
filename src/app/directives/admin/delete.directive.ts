@@ -76,6 +76,7 @@ export class DeleteDirective {
                 700,
                 () => {
                   this.callback.emit();
+                  this.spinner.hide(SpinnerType.BallRunningDots)
                   this.alertifyService.message(
                     'Product has been successfully deleted',
                     {
