@@ -74,7 +74,10 @@ export class ListComponent extends BaseComponent implements OnInit {
         width:"750px"
       },
       afterClosed:()=>{
-
+        this.alertifyService.message("Roles successfully assigned",{
+          messageType:MessageType.Success,
+          position:Position.TopRight
+        })
       }
     })
   }

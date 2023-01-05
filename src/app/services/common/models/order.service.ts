@@ -30,7 +30,7 @@ export class OrderService {
     );
 
     const promiseData = firstValueFrom(observable);
-    promiseData.then(value => successCallBack())
+    promiseData.then( successCallBack)
       .catch(error => errorCallBack(error))
 
     return await promiseData;

@@ -1,3 +1,4 @@
+import { QrcodeDialogComponent } from './../../../../dialogs/qrcode-dialog/qrcode-dialog.component';
 import { SelectProductImageDialogComponent } from './../../../../dialogs/select-product-image-dialog/select-product-image-dialog.component';
 import { DialogService } from './../../../../services/common/dialog/dialog.service';
 import {
@@ -41,6 +42,7 @@ export class ListComponent extends BaseComponent implements OnInit {
     'createdDate',
     'updatedDate',
     'photos',
+    'qrCode',
     'editing',
     'delete',
   ];
@@ -85,5 +87,13 @@ export class ListComponent extends BaseComponent implements OnInit {
 
   async pageChanged() {
     await this.getProducts();
+  }
+
+  showQRCode(productId:string){
+    this.dialogService.openDialog({
+      componentType:QrcodeDialogComponent,
+      data:productId,
+      afterClosed:()=>{}
+    })
   }
 }

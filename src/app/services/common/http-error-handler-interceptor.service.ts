@@ -63,7 +63,16 @@ export class HttpErrorHandlerInterceptorService implements HttpInterceptor {
                   }
                 }
               )
-              .then((data) => { });
+              .then((data) => { 
+                this.toastrService.message(
+                  'You are not authorized to do this operation!',
+                  'Unauthorized!',
+                  {
+                    messageType: ToastrMessageType.Error,
+                    position: ToastrPosition.BottomFullWidth,
+                  }
+                );
+              });
             break;
           case HttpStatusCode.InternalServerError:
             this.toastrService.message(
