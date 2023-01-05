@@ -1,7 +1,8 @@
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTableModule } from '@angular/material/table';
 import { FileUploadModule } from 'src/app/services/common/file-upload/file-upload.module';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialogModule } from '@angular/material/dialog';
+import { MatDialogActions, MatDialogModule } from '@angular/material/dialog';
 import { DeleteDialogComponent } from 'src/app/dialogs/delete-dialog/delete-dialog.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,9 +17,12 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatListModule} from '@angular/material/list';
 import { AuthorizeUserDialogComponent } from './authorize-user-dialog/authorize-user-dialog.component';
 import { QrcodeDialogComponent } from './qrcode-dialog/qrcode-dialog.component';
+import { QrcodeSearchDialogComponent } from './qrcode-search-dialog/qrcode-search-dialog.component';
+import { MatInputModule } from '@angular/material/input';
+import { NgxScannerQrcodeModule } from 'ngx-scanner-qrcode';
 
 @NgModule({
-  declarations: [DeleteDialogComponent, SelectProductImageDialogComponent, BasketItemRemoveDialogComponent, OrderDetailDialogComponent, CompleteOrderDialogComponent, AuthorizeMenuDialogComponent, AuthorizeUserDialogComponent, QrcodeDialogComponent],
+  declarations: [DeleteDialogComponent, SelectProductImageDialogComponent, BasketItemRemoveDialogComponent, OrderDetailDialogComponent, CompleteOrderDialogComponent, AuthorizeMenuDialogComponent, AuthorizeUserDialogComponent, QrcodeDialogComponent, QrcodeSearchDialogComponent],
   imports: [
     CommonModule,
     MatDialogModule,
@@ -29,7 +33,10 @@ import { QrcodeDialogComponent } from './qrcode-dialog/qrcode-dialog.component';
     MatTableModule,
     MatToolbarModule,
     MatBadgeModule,
-    MatListModule
+    MatListModule,
+    MatFormFieldModule,
+    MatInputModule,
+    NgxScannerQrcodeModule
   ],
 })
 export class DialogModule {}

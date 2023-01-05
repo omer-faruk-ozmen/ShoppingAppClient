@@ -1,0 +1,27 @@
+<h4>Product QR Code Search</h4>
+
+<ngx-scanner-qrcode
+  #scanner="scanner"
+  (event)="onEvent($event)"
+></ngx-scanner-qrcode>
+
+<mat-label class="product-update"
+  ><h4>Name: {{ productName }}</h4></mat-label
+>
+
+<mat-form-field appearance="fill" class="product-update">
+  <mat-label>Stock</mat-label>
+  <input matInput type="number" min="0" [value]="stock" #txtStock />
+</mat-form-field>
+
+<mat-form-field appearance="fill" class="product-update">
+  <mat-label>Price</mat-label>
+  <input matInput type="number" min="0" [value]="price" #txtPrice />
+</mat-form-field>
+
+<button mat-raised-button color="primary" class="button" (click)="updateProduct()">Update Product</button>
+
+
+<mat-dialog-actions align="end">
+    <button mat-button mat-dialog-close id="btnClose" >Close</button>
+</mat-dialog-actions>

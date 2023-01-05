@@ -1,3 +1,5 @@
+import { Update_Product } from './../../../contracts/update_product';
+import { Single_Product } from './../../../contracts/product';
 
 import { List_Product_Image } from './../../../contracts/list_product_image';
 import { first, firstValueFrom, Observable } from 'rxjs';
@@ -38,6 +40,18 @@ export class ProductService {
     return await promiseData;
   }
 
+  async getById(productId:string,successCallBack?:()=>void,errorCallBack?:(errorMessage:string)=>void):Promise<Single_Product>{
+    const observable:Observable<any> = this.httpClientService.get<Single_Product>({
+      controller:'products'
+    },productId)
+
+    const promiseData = firstValueFrom(observable)
+
+    promiseData.then(successCallBack).catch((errorResponse:HttpErrorResponse)=> errorCallBack(errorResponse.message))
+
+    return await promiseData;
+  }
+
   create(
     product: Create_Product,
     successCallBack?: () => void,
@@ -59,6 +73,23 @@ export class ProductService {
         errorCallBack(message);
       }
     );
+  }
+
+  async put(product:Update_Product,
+    successCallBack?: () => void,
+    errorCallBack?: (errorMessage: string) => void
+    ){
+
+      const observable:Observable<any>= this.httpClientService.put({
+        controller:'products'
+      },product)
+
+      const promiseData=firstValueFrom(observable)
+
+      promiseData.then(successCallBack).catch((errorResponse:HttpErrorResponse)=> errorCallBack(errorResponse.message))
+
+      return await promiseData
+
   }
 
   async delete(id: string) {
